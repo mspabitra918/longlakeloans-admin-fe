@@ -1,26 +1,53 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Same near-monochrome palette as longlakeloans-frontend, plus admin tokens */
+@theme {
+  --color-ink: #0a0a0a;
+  --color-body: #404040;
+  --color-muted: #737373;
+  --color-line: #e5e5e5;
+  --color-paper: #ffffff;
+  --color-wash: #f7f7f5;
+  --color-accent: #166534;
+
+  /* Legacy names still used by the detail/user/message pages */
+  --color-primary: #0a0a0a;
+  --color-primary-dark: #404040;
+  --color-text-secondary: #737373;
+  --color-maintext: #0a0a0a;
+  --color-lightgrey: #737373;
+  --color-bordergrey: #e5e5e5;
+
+  /* Chart series — reference categorical slots 1-4, fixed order */
+  --color-series-1: #2a78d6;
+  --color-series-2: #eb6834;
+  --color-series-3: #1baf7a;
+  --color-series-4: #eda100;
+
+  /* Crisp corners like the public site */
+  --radius-md: 0.1875rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.375rem;
+  --radius-2xl: 0.5rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: var(--color-wash);
+  color: var(--color-ink);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* Recharts: no focus box on click */
+.recharts-wrapper *:focus {
+  outline: none;
 }

@@ -1,19 +1,25 @@
-import type { Metadata } from "next";
+import { Suspense } from "react";
 import { AdminAuthProvider } from "@/lib/admin-auth";
+import AdminShell from "@/components/AdminShell";
 
-export const metadata: Metadata = {
-  title: "Admin Portal | Oakhill Loans",
-  robots: { index: false, follow: false },
-};
+// AdminShell reads usePathname(), and pages below read useParams() /
+// useSearchParams(). Under cacheComponents those suspend on routes whose params
+// aren't known at build time (e.g. /admin/applications/[id]), so the shell
+// needs a Suspense boundary or prerendering fails.
+function ShellFallback() {
+  return (
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="h-6 w-6 animate-spin rounded-full border-2 border-line border-t-ink" />
+    </div>
+  );
+}
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout({ children }: LayoutProps<"/admin">) {
   return (
     <AdminAuthProvider>
-      <div className="min-h-screen bg-gray-50">{children}</div>
+      <Suspense fallback={<ShellFallback />}>
+        <AdminShell>{children}</AdminShell>
+      </Suspense>
     </AdminAuthProvider>
   );
 }

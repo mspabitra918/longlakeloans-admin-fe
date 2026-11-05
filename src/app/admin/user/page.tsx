@@ -232,52 +232,7 @@ function UsersListContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Top Nav */}
-      <nav className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between sticky top-0 z-10">
-        <div className="flex items-center gap-6">
-          <Link
-            href="/admin/dashboard"
-            className="text-xl font-bold text-primary"
-          >
-            Oakhill Loans
-          </Link>
-          <div className="hidden sm:flex items-center gap-4 text-sm">
-            <Link
-              href="/admin/dashboard"
-              className="text-gray-600 hover:text-primary transition"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/admin/applications"
-              className="text-gray-600 hover:text-primary transition"
-            >
-              Applications
-            </Link>
-            <Link
-              href="/admin/message"
-              className="text-gray-600 hover:text-primary transition"
-            >
-              Message
-            </Link>
-            <Link href="/admin/user" className="text-primary font-medium">
-              User
-            </Link>
-          </div>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-500 hidden sm:inline">
-            {user.name} ({user.role})
-          </span>
-          <button
-            onClick={logout}
-            className="text-sm text-red-600 hover:text-red-800 font-medium cursor-pointer"
-          >
-            Logout
-          </button>
-        </div>
-      </nav>
+    <div className="">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">

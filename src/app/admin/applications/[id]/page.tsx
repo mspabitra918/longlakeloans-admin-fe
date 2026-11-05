@@ -259,7 +259,7 @@ function formatCurrency(amount: number) {
 
 function calcMonthlyPayment(amount: number, termMonths: number): number {
   const monthlyRate = 0.1 / 12;
-  const factor = Math.pow(1 + monthlyRate, termMonths);
+  const factor = Math.pow(1 + monthlyRate, termMonths ?? 24);
   return (amount * (monthlyRate * factor)) / (factor - 1);
 }
 
@@ -672,44 +672,7 @@ export default function ApplicationDetailPage() {
 
   if (user.role === "reviewer") {
     return (
-      <div className="min-h-screen bg-gray-50">
-        {/* Top Nav */}
-        <nav className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between sticky top-0 z-10">
-          <div className="flex items-center gap-6">
-            <Link
-              href="/admin/dashboard"
-              className="text-xl font-bold text-primary"
-            >
-              Oakhill Loans
-            </Link>
-            <div className="hidden sm:flex items-center gap-4 text-sm">
-              <Link
-                href="/admin/dashboard"
-                className="text-gray-600 hover:text-primary transition"
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="/admin/applications"
-                className="text-primary font-medium"
-              >
-                Applications
-              </Link>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-500 hidden sm:inline">
-              {user.name} ({user.role})
-            </span>
-            <button
-              onClick={logout}
-              className="text-sm text-red-600 hover:text-red-800 font-medium cursor-pointer"
-            >
-              Logout
-            </button>
-          </div>
-        </nav>
-
+      <div className="">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
           {/* Back link */}
           <button
@@ -845,7 +808,7 @@ export default function ApplicationDetailPage() {
                   label="Full name"
                   value={`${app.first_name} ${app.last_name}`}
                 />
-                <Field label="Suffix" value={app.suffix || "-"} />
+                {/* <Field label="Suffix" value={app.suffix || "-"} /> */}
                 <Field label="Email" value={app.email} />
                 <Field label="Phone" value={app.phone} />
                 <Field
@@ -903,24 +866,24 @@ export default function ApplicationDetailPage() {
 
                 <Field label="Country" value={app.country || "-"} />
 
-                <Field
+                {/* <Field
                   label="Time at Current Address"
                   value={app.time_at_current_address || "-"}
-                />
+                /> */}
 
                 <Field
                   label="Housing Status"
                   value={app.housing_status || "-"}
                 />
 
-                <Field
+                {/* <Field
                   label="Monthly Housing Payment"
                   value={
                     app.monthly_housing_payment != null
                       ? formatCurrency(Number(app.monthly_housing_payment))
                       : "-"
                   }
-                />
+                /> */}
               </Section>
 
               {/* Employment */}
@@ -930,10 +893,10 @@ export default function ApplicationDetailPage() {
                   value={app.employment_status || "-"}
                 />
 
-                <Field
+                {/* <Field
                   label="Primary Income Type"
                   value={app.primary_income_type || "-"}
-                />
+                /> */}
 
                 <Field label="Employer" value={app.employer_name || "-"} />
 
@@ -944,10 +907,10 @@ export default function ApplicationDetailPage() {
                   value={app.employer_phone || "-"}
                 />
 
-                <Field
+                {/* <Field
                   label="Time at Current Job"
                   value={app.time_at_current_job || "-"}
-                />
+                /> */}
 
                 <Field
                   label="Net Monthly Income"
@@ -980,19 +943,19 @@ export default function ApplicationDetailPage() {
                   }
                 />
 
-                <Field
+                {/* <Field
                   label="Additional Monthly Income"
                   value={
                     app.additional_monthly_income != null
                       ? formatCurrency(Number(app.additional_monthly_income))
                       : "-"
                   }
-                />
+                /> */}
 
-                <Field
+                {/* <Field
                   label="Additional Income Source"
                   value={app.additional_income_source || "-"}
-                />
+                /> */}
               </Section>
 
               {/* Loan Details */}
@@ -1002,7 +965,23 @@ export default function ApplicationDetailPage() {
                   value={formatCurrency(Number(app.loan_amount))}
                 />
 
-                <Field label="Loan Purpose" value={app.loan_purpose || "-"} />
+                {/* <Field label="Loan Purpose" value={app.loan_purpose || "-"} />
+
+                {app?.loan_purpose === "other" && (
+                  <Field
+                    label="Loan Purpose"
+                    value={app.loan_purpose_other_detail || "-"}
+                  />
+                )} */}
+
+                <Field
+                  label="Loan Purpose"
+                  value={
+                    app.loan_purpose === "other"
+                      ? `Other (${app.loan_purpose_other_detail || "-"})`
+                      : app.loan_purpose || "-"
+                  }
+                />
 
                 {app.loan_purpose === "Other Personal Expenses" && (
                   <Field
@@ -1011,14 +990,17 @@ export default function ApplicationDetailPage() {
                   />
                 )}
 
-                <Field label="Loan Term" value={`${app.loan_term} months`} />
+                <Field
+                  label="Loan Term"
+                  value={`${app.loan_term ?? 24} months`}
+                />
 
                 <Field
                   label="Monthly Payment"
                   value={formatCurrency(
                     calcMonthlyPayment(
                       Number(app.loan_amount),
-                      Number(app.loan_term),
+                      Number(app.loan_term ?? 24),
                     ),
                   )}
                 />
@@ -1044,10 +1026,10 @@ export default function ApplicationDetailPage() {
                   }
                 />
 
-                <Field
+                {/* <Field
                   label="Account Status"
                   value={app.bank_balance_status || "-"}
-                />
+                /> */}
 
                 <Field
                   label="Account Age"
@@ -1239,44 +1221,7 @@ export default function ApplicationDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Top Nav */}
-      <nav className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between sticky top-0 z-10 ">
-        <div className="flex items-center gap-6">
-          <Link
-            href="/admin/dashboard"
-            className="text-xl font-bold text-primary"
-          >
-            Oakhill Loans
-          </Link>
-          <div className="hidden sm:flex items-center gap-4 text-sm">
-            <Link
-              href="/admin/dashboard"
-              className="text-gray-600 hover:text-primary transition"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/admin/applications"
-              className="text-primary font-medium"
-            >
-              Applications
-            </Link>
-          </div>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-500 hidden sm:inline">
-            {user.name} ({user.role})
-          </span>
-          <button
-            onClick={logout}
-            className="text-sm text-red-600 hover:text-red-800 font-medium cursor-pointer"
-          >
-            Logout
-          </button>
-        </div>
-      </nav>
-
+    <div className="">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         {/* Back link */}
         <button
@@ -1542,7 +1487,7 @@ export default function ApplicationDetailPage() {
                     label="Full name"
                     value={`${app.first_name} ${app.last_name}`}
                   />
-                  <Field label="Suffix" value={app.suffix || "-"} />
+                  {/* <Field label="Suffix" value={app.suffix || "-"} /> */}
                   <Field label="Email" value={app.email} />
                   <Field label="Phone" value={app.phone} />
                   <Field
@@ -1648,24 +1593,24 @@ export default function ApplicationDetailPage() {
 
                     <Field label="Country" value={app.country || "-"} />
 
-                    <Field
+                    {/* <Field
                       label="Time at Current Address"
                       value={app.time_at_current_address || "-"}
-                    />
+                    /> */}
 
                     <Field
                       label="Housing Status"
                       value={app.housing_status || "-"}
                     />
 
-                    <Field
+                    {/* <Field
                       label="Monthly Housing Payment"
                       value={
                         app.monthly_housing_payment != null
                           ? formatCurrency(Number(app.monthly_housing_payment))
                           : "-"
                       }
-                    />
+                    /> */}
                   </div>
                 </div>
               )}
@@ -1739,10 +1684,10 @@ export default function ApplicationDetailPage() {
                       value={app.employment_status || "-"}
                     />
 
-                    <Field
+                    {/* <Field
                       label="Primary Income Type"
                       value={app.primary_income_type || "-"}
-                    />
+                    /> */}
 
                     <Field label="Employer" value={app.employer_name || "-"} />
 
@@ -1753,10 +1698,10 @@ export default function ApplicationDetailPage() {
                       value={app.employer_phone || "-"}
                     />
 
-                    <Field
+                    {/* <Field
                       label="Time at Current Job"
                       value={app.time_at_current_job || "-"}
-                    />
+                    /> */}
 
                     <Field
                       label="Net Monthly Income"
@@ -1794,7 +1739,7 @@ export default function ApplicationDetailPage() {
                       }
                     />
 
-                    <Field
+                    {/* <Field
                       label="Additional Monthly Income"
                       value={
                         app.additional_monthly_income != null
@@ -1803,12 +1748,12 @@ export default function ApplicationDetailPage() {
                             )
                           : "-"
                       }
-                    />
+                    /> */}
 
-                    <Field
+                    {/* <Field
                       label="Additional Income Source"
                       value={app.additional_income_source || "-"}
-                    />
+                    /> */}
                   </div>
                 </div>
               )}
@@ -1893,7 +1838,7 @@ export default function ApplicationDetailPage() {
                     value={formatCurrency(
                       calcMonthlyPayment(
                         Number(formData.loan_amount ?? 0),
-                        Number(formData.loan_term ?? 0),
+                        Number(formData.loan_term ?? 24),
                       ),
                     )}
                   />
@@ -1906,7 +1851,7 @@ export default function ApplicationDetailPage() {
                       value={formatCurrency(Number(app.loan_amount))}
                     />
 
-                    <Field
+                    {/* <Field
                       label="Loan Purpose"
                       value={app.loan_purpose || "-"}
                     />
@@ -1916,11 +1861,20 @@ export default function ApplicationDetailPage() {
                         label="Purpose — Other Detail"
                         value={app.loan_purpose_other_detail || "-"}
                       />
-                    )}
+                    )} */}
+
+                    <Field
+                      label="Loan Purpose"
+                      value={
+                        app.loan_purpose === "other"
+                          ? `Other (${app.loan_purpose_other_detail || "-"})`
+                          : app.loan_purpose || "-"
+                      }
+                    />
 
                     <Field
                       label="Loan Term"
-                      value={`${app.loan_term} months`}
+                      value={`${app.loan_term ?? 24} months`}
                     />
 
                     <Field
@@ -1928,7 +1882,7 @@ export default function ApplicationDetailPage() {
                       value={formatCurrency(
                         calcMonthlyPayment(
                           Number(app.loan_amount),
-                          Number(app.loan_term),
+                          Number(app.loan_term ?? 24),
                         ),
                       )}
                     />
@@ -2060,10 +2014,10 @@ export default function ApplicationDetailPage() {
                       }
                     />
 
-                    <Field
+                    {/* <Field
                       label="Account Status"
                       value={app.bank_balance_status || "-"}
-                    />
+                    /> */}
 
                     <Field
                       label="Account Age"
