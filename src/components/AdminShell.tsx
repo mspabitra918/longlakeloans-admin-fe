@@ -17,7 +17,7 @@ import { useAdminAuth } from "@/lib/admin-auth";
 const NAV = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/applications", label: "Applications", icon: FileText },
-  { href: "/admin/message", label: "Messages", icon: Mail },
+  // { href: "/admin/message", label: "Messages", icon: Mail },
   { href: "/admin/user", label: "Users", icon: Users, adminOnly: true },
 ];
 
