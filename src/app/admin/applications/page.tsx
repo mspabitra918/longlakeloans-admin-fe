@@ -53,7 +53,7 @@ export default function ApplicationsListPage() {
     <Suspense
       fallback={
         <div className="flex min-h-[60vh] items-center justify-center">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-line border-t-ink" />
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-line border-t-brand" />
         </div>
       }
     >
@@ -286,7 +286,7 @@ function ApplicationsList() {
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search name, phone, email or application ID"
               aria-label="Search applications"
-              className="w-full border border-line bg-paper py-2 pl-9 pr-9 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-ink [&::-webkit-search-cancel-button]:hidden"
+              className="w-full border border-line bg-paper py-2 pl-9 pr-9 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-brand [&::-webkit-search-cancel-button]:hidden"
             />
             {searchInput && (
               <button
@@ -308,7 +308,7 @@ function ApplicationsList() {
             <div
               role="tablist"
               aria-label="Date range"
-              className="inline-flex flex-wrap border border-line p-0.5"
+              className="inline-flex flex-wrap rounded-lg border border-line p-0.5"
             >
               {DATE_PRESETS.map((p) => (
                 <button
@@ -316,10 +316,10 @@ function ApplicationsList() {
                   role="tab"
                   aria-selected={preset === p.key}
                   onClick={() => choosePreset(p.key)}
-                  className={`cursor-pointer px-3 py-1.5 text-xs font-medium transition-colors ${
+                  className={`cursor-pointer rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
                     preset === p.key
-                      ? "bg-ink text-paper"
-                      : "text-muted hover:text-ink"
+                      ? "bg-brand text-paper"
+                      : "text-muted hover:text-brand"
                   }`}
                 >
                   {p.label}
@@ -328,7 +328,7 @@ function ApplicationsList() {
             </div>
             <div
               className={`flex items-center border p-0.5 text-xs ${
-                preset === "custom" ? "border-ink" : "border-line"
+                preset === "custom" ? "border-brand" : "border-line"
               }`}
             >
               <input
@@ -367,8 +367,8 @@ function ApplicationsList() {
                 }}
                 className={`shrink-0 cursor-pointer border px-3 py-1 text-xs font-medium whitespace-nowrap transition-colors ${
                   status === s
-                    ? "border-ink bg-ink text-paper"
-                    : "border-line text-body hover:border-ink hover:text-ink"
+                    ? "border-brand bg-brand text-paper"
+                    : "border-line text-body hover:border-brand hover:text-brand"
                 }`}
               >
                 {s ? statusLabel(s) : "All statuses"}
@@ -466,7 +466,7 @@ function ApplicationsList() {
                     {(from || to) && (
                       <button
                         onClick={() => choosePreset("all")}
-                        className="mt-4 cursor-pointer border border-ink px-4 py-2 text-xs font-medium text-ink transition-colors hover:bg-ink hover:text-paper"
+                        className="mt-4 cursor-pointer border border-brand px-4 py-2 text-xs font-medium text-brand transition-colors hover:bg-brand hover:text-paper"
                       >
                         Search all time
                       </button>
@@ -607,7 +607,7 @@ function Pagination({
             onClick={() => onPage(page - 1)}
             disabled={page === 1}
             aria-label="Previous page"
-            className={`${btn} border-line text-body hover:border-ink`}
+            className={`${btn} border-line text-body hover:border-brand`}
           >
             <ChevronLeft className="h-4 w-4" strokeWidth={1.75} />
           </button>
@@ -623,8 +623,8 @@ function Pagination({
                 aria-current={p === page ? "page" : undefined}
                 className={`${btn} ${
                   p === page
-                    ? "border-ink bg-ink text-paper"
-                    : "border-line text-body hover:border-ink"
+                    ? "border-brand bg-brand text-paper"
+                    : "border-line text-body hover:border-brand"
                 }`}
               >
                 {p}
@@ -635,7 +635,7 @@ function Pagination({
             onClick={() => onPage(page + 1)}
             disabled={page === totalPages}
             aria-label="Next page"
-            className={`${btn} border-line text-body hover:border-ink`}
+            className={`${btn} border-line text-body hover:border-brand`}
           >
             <ChevronRight className="h-4 w-4" strokeWidth={1.75} />
           </button>

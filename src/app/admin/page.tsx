@@ -7,7 +7,7 @@ import { useAdminAuth } from "@/lib/admin-auth";
 import { Logo } from "@/components/AdminShell";
 
 const input =
-  "w-full border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-ink";
+  "w-full rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-brand focus:ring-2 focus:ring-brand/15";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -38,27 +38,27 @@ export default function AdminLoginPage() {
   if (loading || user) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <div className="h-6 w-6 animate-spin rounded-full border-2 border-line border-t-ink" />
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-line border-t-brand" />
       </div>
     );
   }
 
   return (
     <div className="grid min-h-screen bg-paper lg:grid-cols-2">
-      <div className="hidden flex-col justify-between bg-ink p-12 text-paper lg:flex">
-        <p className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+      <div className="hidden flex-col justify-between bg-brand-dark p-12 text-paper lg:flex">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-light">
           Admin portal
         </p>
         <div>
           <h2 className="max-w-md text-4xl font-semibold leading-tight tracking-tight">
             Every application, one clear view.
           </h2>
-          <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-400">
+          <p className="mt-4 max-w-md text-base leading-relaxed text-mint-strong">
             Review applications, track funding and keep an eye on volume across
             the day, week, quarter and year.
           </p>
         </div>
-        <p className="text-xs text-neutral-500">
+        <p className="text-xs text-paper/60">
           © {new Date().getFullYear()} LongLake Loans · Internal use only
         </p>
       </div>
@@ -74,7 +74,7 @@ export default function AdminLoginPage() {
           </p>
 
           {error && (
-            <div className="mt-6 border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+            <div className="mt-6 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
               {error}
             </div>
           )}
@@ -113,7 +113,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 bg-ink px-6 py-3 text-sm font-medium text-paper transition-colors hover:bg-neutral-700 disabled:opacity-50"
+              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-paper shadow-sm transition-colors hover:bg-brand-dark disabled:opacity-50"
             >
               {submitting ? "Signing in…" : "Sign in"}
               {!submitting && <ArrowRight className="h-4 w-4" strokeWidth={1.5} />}

@@ -21,13 +21,25 @@ const NAV = [
   { href: "/admin/user", label: "Users", icon: Users, adminOnly: true },
 ];
 
-export function Logo({ href = "/admin/dashboard" }: { href?: string }) {
+export function Logo({
+  href = "/admin/dashboard",
+  light = false,
+}: {
+  href?: string;
+  light?: boolean;
+}) {
   return (
     <Link href={href} className="flex items-center gap-2.5">
-      <span className="flex h-6 w-6 items-center justify-center bg-ink text-xs font-bold text-paper">
+      <span
+        className={`flex h-7 w-7 items-center justify-center rounded-md text-sm font-bold ${
+          light ? "bg-paper text-brand" : "bg-brand text-paper"
+        }`}
+      >
         L
       </span>
-      <span className="text-base font-semibold tracking-tight text-ink">
+      <span
+        className={`text-base font-semibold tracking-tight ${light ? "text-paper" : "text-ink"}`}
+      >
         LongLake Loans
       </span>
     </Link>
@@ -37,7 +49,7 @@ export function Logo({ href = "/admin/dashboard" }: { href?: string }) {
 function Spinner() {
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="h-6 w-6 animate-spin rounded-full border-2 border-line border-t-ink" />
+      <div className="h-6 w-6 animate-spin rounded-full border-2 border-line border-t-brand" />
     </div>
   );
 }
@@ -65,7 +77,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
 
   const nav = (
     <nav className="flex flex-1 flex-col gap-0.5 px-3 py-4">
-      <p className="px-3 pb-2 text-[11px] font-medium uppercase tracking-[0.18em] text-muted">
+      <p className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">
         Menu
       </p>
       {links.map(({ href, label, icon: Icon }) => {
@@ -75,10 +87,10 @@ export default function AdminShell({ children }: { children: ReactNode }) {
             key={href}
             href={href}
             onClick={() => setOpen(false)}
-            className={`flex items-center gap-3 px-3 py-2 text-sm transition-colors ${
+            className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
               active
-                ? "bg-ink font-medium text-paper"
-                : "text-body hover:bg-wash hover:text-ink"
+                ? "bg-brand font-medium text-paper shadow-sm"
+                : "text-body hover:bg-mint hover:text-brand-dark"
             }`}
           >
             <Icon className="h-4 w-4" strokeWidth={1.75} />
@@ -92,7 +104,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
   const account = (
     <div className="border-t border-line p-4">
       <div className="flex items-center gap-3">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center bg-wash text-xs font-semibold uppercase text-ink ring-1 ring-line">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mint text-xs font-semibold uppercase text-brand ring-1 ring-mint-strong">
           {user.name?.slice(0, 2) || "AD"}
         </div>
         <div className="min-w-0 flex-1">
@@ -115,20 +127,20 @@ export default function AdminShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-wash">
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col border-r border-line bg-paper lg:flex">
-        <div className="flex h-16 items-center border-b border-line px-6">
-          <Logo />
+        <div className="flex h-16 items-center bg-brand-dark px-6">
+          <Logo light />
         </div>
         {nav}
         {account}
       </aside>
 
       {/* Mobile top bar + drawer */}
-      <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-paper/90 px-4 backdrop-blur-md lg:hidden">
-        <Logo />
+      <header className="sticky top-0 z-30 flex h-14 items-center justify-between bg-brand-dark/95 px-4 shadow-sm backdrop-blur-md lg:hidden">
+        <Logo light />
         <button
           onClick={() => setOpen(true)}
           aria-label="Open menu"
-          className="-mr-2 p-2 text-ink"
+          className="-mr-2 p-2 text-paper"
         >
           <Menu className="h-5 w-5" strokeWidth={1.5} />
         </button>
@@ -140,12 +152,12 @@ export default function AdminShell({ children }: { children: ReactNode }) {
             onClick={() => setOpen(false)}
           />
           <aside className="absolute inset-y-0 left-0 flex w-64 flex-col bg-paper">
-            <div className="flex h-14 items-center justify-between border-b border-line px-4">
-              <Logo />
+            <div className="flex h-14 items-center justify-between bg-brand-dark px-4">
+              <Logo light />
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
-                className="p-2 text-ink"
+                className="p-2 text-paper"
               >
                 <X className="h-5 w-5" strokeWidth={1.5} />
               </button>
@@ -174,7 +186,7 @@ export function PageHeader({
     <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
         {eyebrow && (
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">
             {eyebrow}
           </p>
         )}

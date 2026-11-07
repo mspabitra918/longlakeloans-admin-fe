@@ -232,7 +232,7 @@ function RangeTabs({
     <div
       role="tablist"
       aria-label="Time range"
-      className="inline-flex border border-line bg-paper p-0.5"
+      className="inline-flex rounded-lg border border-line bg-paper p-0.5"
     >
       {RANGES.map((r) => (
         <button
@@ -240,10 +240,10 @@ function RangeTabs({
           role="tab"
           aria-selected={value === r.key}
           onClick={() => onChange(r.key)}
-          className={`cursor-pointer px-3.5 py-1.5 text-sm font-medium transition-colors ${
+          className={`cursor-pointer rounded-md px-3.5 py-1.5 text-sm font-medium transition-colors ${
             value === r.key
-              ? "bg-ink text-paper"
-              : "text-muted hover:text-ink"
+              ? "bg-brand text-paper"
+              : "text-muted hover:text-brand"
           }`}
         >
           {r.label}
@@ -363,9 +363,9 @@ function BarList({
               </span>
             </span>
           </div>
-          <div className="h-1.5 w-full bg-wash">
+          <div className="h-1.5 w-full bg-mint">
             <div
-              className="h-full bg-ink transition-[width] duration-500"
+              className="h-full bg-brand transition-[width] duration-500"
               style={{ width: `${(r.count / max) * 100}%` }}
               title={formatCurrency(r.amount)}
             />
@@ -604,7 +604,7 @@ export default function AdminDashboard() {
                   key={m}
                   onClick={() => setMode(m)}
                   className={`cursor-pointer px-2.5 py-1 text-xs font-medium transition-colors ${
-                    mode === m ? "bg-ink text-paper" : "text-muted hover:text-ink"
+                    mode === m ? "bg-brand text-paper" : "text-muted hover:text-brand"
                   }`}
                 >
                   {m === "count" ? "Count" : "Amount"}
