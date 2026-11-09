@@ -179,12 +179,12 @@ function Delta({
   const up = pct !== null && pct > 0;
   const flat = pct === 0;
   const good = invert ? !up : up;
-  const Icon = flat ? Minus : up || pct === null ? ArrowUpRight : ArrowDownRight;
-  const tone = flat
-    ? "text-muted"
-    : good
-      ? "text-green-700"
-      : "text-red-600";
+  const Icon = flat
+    ? Minus
+    : up || pct === null
+      ? ArrowUpRight
+      : ArrowDownRight;
+  const tone = flat ? "text-muted" : good ? "text-green-700" : "text-red-600";
   return (
     <p className="mt-2 flex items-center gap-1 text-xs text-muted">
       <span className={`inline-flex items-center gap-0.5 font-medium ${tone}`}>
@@ -268,11 +268,16 @@ function ChartTooltip({
   const p = payload[0].payload;
   return (
     <div className="min-w-48 border border-line bg-paper px-3.5 py-3 text-xs shadow-lg">
-      <p className="mb-2 font-medium text-ink">{bucketLabel(p.bucket, unit, true)}</p>
+      <p className="mb-2 font-medium text-ink">
+        {bucketLabel(p.bucket, unit, true)}
+      </p>
       {mode === "count" ? (
         <>
           {[...SERIES].reverse().map((s) => (
-            <div key={s.key} className="flex items-center justify-between gap-6 py-0.5">
+            <div
+              key={s.key}
+              className="flex items-center justify-between gap-6 py-0.5"
+            >
               <span className="flex items-center gap-2 text-body">
                 <span className="h-2.5 w-2.5" style={{ background: s.color }} />
                 {s.label}
@@ -293,7 +298,10 @@ function ChartTooltip({
         <>
           <div className="flex items-center justify-between gap-6 py-0.5">
             <span className="flex items-center gap-2 text-body">
-              <span className="h-2.5 w-2.5" style={{ background: "var(--color-series-1)" }} />
+              <span
+                className="h-2.5 w-2.5"
+                style={{ background: "var(--color-series-1)" }}
+              />
               Requested
             </span>
             <span className="font-medium text-ink tabular-nums">
@@ -302,7 +310,10 @@ function ChartTooltip({
           </div>
           <div className="flex items-center justify-between gap-6 py-0.5">
             <span className="flex items-center gap-2 text-body">
-              <span className="h-0.5 w-2.5" style={{ background: "var(--color-series-3)" }} />
+              <span
+                className="h-0.5 w-2.5"
+                style={{ background: "var(--color-series-3)" }}
+              />
               Funded
             </span>
             <span className="font-medium text-ink tabular-nums">
@@ -318,11 +329,18 @@ function ChartTooltip({
   );
 }
 
-function Legend({ items }: { items: { label: string; color: string; line?: boolean }[] }) {
+function Legend({
+  items,
+}: {
+  items: { label: string; color: string; line?: boolean }[];
+}) {
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
       {items.map((i) => (
-        <span key={i.label} className="flex items-center gap-1.5 text-xs text-body">
+        <span
+          key={i.label}
+          className="flex items-center gap-1.5 text-xs text-body"
+        >
           <span
             className={i.line ? "h-0.5 w-3" : "h-2.5 w-2.5"}
             style={{ background: i.color }}
@@ -339,7 +357,13 @@ function BarList({
   rows,
   empty,
 }: {
-  rows: { key: string; label: React.ReactNode; count: number; amount: number; dot?: string }[];
+  rows: {
+    key: string;
+    label: React.ReactNode;
+    count: number;
+    amount: number;
+    dot?: string;
+  }[];
   empty: string;
 }) {
   const max = Math.max(1, ...rows.map((r) => r.count));
@@ -353,7 +377,11 @@ function BarList({
         <li key={r.key}>
           <div className="mb-1.5 flex items-baseline justify-between gap-3 text-sm">
             <span className="flex min-w-0 items-center gap-2 truncate text-body">
-              {r.dot && <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${r.dot}`} />}
+              {r.dot && (
+                <span
+                  className={`h-1.5 w-1.5 shrink-0 rounded-full ${r.dot}`}
+                />
+              )}
               {r.label}
             </span>
             <span className="shrink-0 text-ink tabular-nums">
@@ -493,7 +521,10 @@ export default function AdminDashboard() {
             title="Refresh"
             className="cursor-pointer border border-line bg-paper p-2 text-muted transition-colors hover:text-ink"
           >
-            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} strokeWidth={1.75} />
+            <RefreshCw
+              className={`h-4 w-4 ${loading ? "animate-spin" : ""}`}
+              strokeWidth={1.75}
+            />
           </button>
         </div>
       </PageHeader>
@@ -501,7 +532,10 @@ export default function AdminDashboard() {
       {error && (
         <div className="mb-6 flex items-center justify-between border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {error}
-          <button onClick={load} className="cursor-pointer font-medium underline">
+          <button
+            onClick={load}
+            className="cursor-pointer font-medium underline"
+          >
             Retry
           </button>
         </div>
@@ -523,31 +557,61 @@ export default function AdminDashboard() {
               label="Applications"
               value={formatNumber(cur.total)}
               sub={`${formatNumber(data.allTimeTotal)} all time`}
-              delta={<Delta cur={cur.total} prev={prev.total} prevLabel={meta.prev} />}
+              delta={
+                <Delta
+                  cur={cur.total}
+                  prev={prev.total}
+                  prevLabel={meta.prev}
+                />
+              }
             />
             <Kpi
               label="Requested"
               value={formatCurrency(cur.amount, cur.amount >= 100000)}
               sub="Total loan amount"
-              delta={<Delta cur={cur.amount} prev={prev.amount} prevLabel={meta.prev} />}
+              delta={
+                <Delta
+                  cur={cur.amount}
+                  prev={prev.amount}
+                  prevLabel={meta.prev}
+                />
+              }
             />
             <Kpi
               label="Avg. loan"
               value={formatCurrency(cur.avg_amount)}
               sub="Per application"
-              delta={<Delta cur={cur.avg_amount} prev={prev.avg_amount} prevLabel={meta.prev} />}
+              delta={
+                <Delta
+                  cur={cur.avg_amount}
+                  prev={prev.avg_amount}
+                  prevLabel={meta.prev}
+                />
+              }
             />
             <Kpi
               label="Funded"
               value={formatNumber(cur.funded)}
               sub={formatCurrency(cur.funded_amount)}
-              delta={<Delta cur={cur.funded} prev={prev.funded} prevLabel={meta.prev} />}
+              delta={
+                <Delta
+                  cur={cur.funded}
+                  prev={prev.funded}
+                  prevLabel={meta.prev}
+                />
+              }
             />
             <Kpi
               label="Funded rate"
               value={`${fundedRate.toFixed(1)}%`}
               sub={`${formatNumber(cur.verified)} bank verified`}
-              delta={<Delta cur={fundedRate} prev={prevFundedRate} prevLabel={meta.prev} />}
+              delta={
+                <Delta
+                  cur={fundedRate}
+                  prev={prevFundedRate}
+                  prevLabel={meta.prev}
+                />
+              }
             />
             <Kpi
               label="Declined"
@@ -558,7 +622,12 @@ export default function AdminDashboard() {
                   : "—"
               }
               delta={
-                <Delta cur={cur.declined} prev={prev.declined} prevLabel={meta.prev} invert />
+                <Delta
+                  cur={cur.declined}
+                  prev={prev.declined}
+                  prevLabel={meta.prev}
+                  invert
+                />
               }
             />
           </>
@@ -581,7 +650,8 @@ export default function AdminDashboard() {
                   : "Daily, Pacific time"}
               {peak && peak.total > 0 && (
                 <>
-                  {" "}· Peak {formatNumber(peak.total)} on{" "}
+                  {" "}
+                  · Peak {formatNumber(peak.total)} on{" "}
                   {bucketLabel(peak.bucket, data!.unit, true)}
                 </>
               )}
@@ -594,7 +664,11 @@ export default function AdminDashboard() {
                   ? SERIES.map((s) => ({ label: s.label, color: s.color }))
                   : [
                       { label: "Requested", color: "var(--color-series-1)" },
-                      { label: "Funded", color: "var(--color-series-3)", line: true },
+                      {
+                        label: "Funded",
+                        color: "var(--color-series-3)",
+                        line: true,
+                      },
                     ]
               }
             />
@@ -604,7 +678,9 @@ export default function AdminDashboard() {
                   key={m}
                   onClick={() => setMode(m)}
                   className={`cursor-pointer px-2.5 py-1 text-xs font-medium transition-colors ${
-                    mode === m ? "bg-brand text-paper" : "text-muted hover:text-brand"
+                    mode === m
+                      ? "bg-brand text-paper"
+                      : "text-muted hover:text-brand"
                   }`}
                 >
                   {m === "count" ? "Count" : "Amount"}
@@ -663,7 +739,9 @@ export default function AdminDashboard() {
                         stroke="#ffffff"
                         strokeWidth={data.series.length > 40 ? 0 : 1}
                         isAnimationActive={false}
-                        className={data.unit !== "month" ? "cursor-pointer" : ""}
+                        className={
+                          data.unit !== "month" ? "cursor-pointer" : ""
+                        }
                         onClick={(entry) =>
                           onBucketClick((entry as { payload?: Point }).payload)
                         }
@@ -677,8 +755,16 @@ export default function AdminDashboard() {
                   >
                     <defs>
                       <linearGradient id="volFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#2a78d6" stopOpacity={0.22} />
-                        <stop offset="100%" stopColor="#2a78d6" stopOpacity={0.02} />
+                        <stop
+                          offset="0%"
+                          stopColor="#2a78d6"
+                          stopOpacity={0.22}
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor="#2a78d6"
+                          stopOpacity={0.02}
+                        />
                       </linearGradient>
                     </defs>
                     <CartesianGrid vertical={false} stroke={GRID} />
@@ -734,7 +820,7 @@ export default function AdminDashboard() {
 
       {/* Breakdowns */}
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <Card
+        {/* <Card
           title="By status"
           action={
             <Link href={listHref} className="text-xs text-muted hover:text-ink">
@@ -751,15 +837,17 @@ export default function AdminDashboard() {
               ))}
             </div>
           )}
-        </Card>
-        <Card title="Top states">
+        </Card> */}
+        {/* <Card title="Top states">
           {data ? (
             <BarList
               rows={data.topStates.map((s) => ({
                 key: s.state,
                 label: (
                   <>
-                    <span className="w-7 font-mono text-xs text-muted">{s.state}</span>
+                    <span className="w-7 font-mono text-xs text-muted">
+                      {s.state}
+                    </span>
                     {optionLabel(US_STATES, s.state)}
                   </>
                 ),
@@ -775,8 +863,8 @@ export default function AdminDashboard() {
               ))}
             </div>
           )}
-        </Card>
-        <Card title="Loan purpose">
+        </Card> */}
+        {/* <Card title="Loan purpose">
           {data ? (
             <BarList
               rows={data.purposes.map((p) => ({
@@ -794,7 +882,7 @@ export default function AdminDashboard() {
               ))}
             </div>
           )}
-        </Card>
+        </Card> */}
       </div>
 
       {/* Recent */}
@@ -807,7 +895,10 @@ export default function AdminDashboard() {
             className="group inline-flex items-center gap-1 text-xs font-medium text-ink hover:underline"
           >
             View all
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" strokeWidth={1.5} />
+            <ArrowRight
+              className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+              strokeWidth={1.5}
+            />
           </Link>
         }
       >
@@ -818,7 +909,9 @@ export default function AdminDashboard() {
             ))}
           </div>
         ) : recent.length === 0 ? (
-          <p className="px-5 py-10 text-center text-sm text-muted">No applications yet</p>
+          <p className="px-5 py-10 text-center text-sm text-muted">
+            No applications yet
+          </p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -835,7 +928,9 @@ export default function AdminDashboard() {
                 {recent.map((app) => (
                   <tr
                     key={app.application_id}
-                    onClick={() => router.push(`/admin/applications/${app.application_id}`)}
+                    onClick={() =>
+                      router.push(`/admin/applications/${app.application_id}`)
+                    }
                     className="cursor-pointer transition-colors hover:bg-wash"
                   >
                     <td className="px-5 py-3">

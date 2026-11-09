@@ -697,7 +697,10 @@ export default function ApplicationDetailPage() {
                     {app.first_name} {app.last_name}
                   </h1>
                   <p className="text-gray-500">
-                    {app.email} &middot; {app.phone}
+                    {app.email} &middot;{" "}
+                    {app.phone
+                      ?.replace(/\D/g, "")
+                      .replace(/^1?(\d{3})(\d{3})(\d{4})$/, "($1) $2-$3")}
                   </p>
                 </div>
                 <span
@@ -810,7 +813,12 @@ export default function ApplicationDetailPage() {
                 />
                 {/* <Field label="Suffix" value={app.suffix || "-"} /> */}
                 <Field label="Email" value={app.email} />
-                <Field label="Phone" value={app.phone} />
+                <Field
+                  label="Phone"
+                  value={app.phone
+                    ?.replace(/\D/g, "")
+                    .replace(/^1?(\d{3})(\d{3})(\d{4})$/, "($1) $2-$3")}
+                />
                 <Field
                   label="Date of Birth"
                   value={
@@ -992,7 +1000,7 @@ export default function ApplicationDetailPage() {
 
                 <Field
                   label="Loan Term"
-                  value={`${app.loan_term ?? 24} months`}
+                  value={`${app.loan_term ?? 0} months`}
                 />
 
                 <Field
@@ -1000,7 +1008,7 @@ export default function ApplicationDetailPage() {
                   value={formatCurrency(
                     calcMonthlyPayment(
                       Number(app.loan_amount),
-                      Number(app.loan_term ?? 24),
+                      Number(app.loan_term ?? 0),
                     ),
                   )}
                 />
@@ -1101,7 +1109,11 @@ export default function ApplicationDetailPage() {
                 <Field
                   label="SSN"
                   value={
-                    revealedSensitive?.ssn || app.ssn_decrypted || "•••-••-••••"
+                    revealedSensitive?.ssn ||
+                    app.ssn_decrypted
+                      ?.replace(/\D/g, "")
+                      .replace(/^(\d{3})(\d{2})(\d{4})$/, "$1-$2-$3") ||
+                    "•••-••-••••"
                   }
                 />
 
@@ -1246,7 +1258,10 @@ export default function ApplicationDetailPage() {
                   {app.first_name} {app.last_name}
                 </h1>
                 <p className="text-gray-500">
-                  {app.email} &middot; {app.phone}
+                  {app.email} &middot;{" "}
+                  {app.phone
+                    ?.replace(/\D/g, "")
+                    .replace(/^1?(\d{3})(\d{3})(\d{4})$/, "($1) $2-$3")}
                 </p>
               </div>
               <div className="flex items-center gap-3 flex-wrap">
@@ -1426,7 +1441,9 @@ export default function ApplicationDetailPage() {
                   <EditableField
                     label="Phone"
                     name="phone"
-                    value={formData.phone}
+                    value={formData.phone
+                      ?.replace(/\D/g, "")
+                      .replace(/^1?(\d{3})(\d{3})(\d{4})$/, "($1) $2-$3")}
                     onChange={handleFormChange}
                   />
                   <EditableField
@@ -1489,7 +1506,12 @@ export default function ApplicationDetailPage() {
                   />
                   {/* <Field label="Suffix" value={app.suffix || "-"} /> */}
                   <Field label="Email" value={app.email} />
-                  <Field label="Phone" value={app.phone} />
+                  <Field
+                    label="Phone"
+                    value={app.phone
+                      ?.replace(/\D/g, "")
+                      .replace(/^1?(\d{3})(\d{3})(\d{4})$/, "($1) $2-$3")}
+                  />
                   <Field
                     label="Date of Birth"
                     value={
@@ -1874,7 +1896,7 @@ export default function ApplicationDetailPage() {
 
                     <Field
                       label="Loan Term"
-                      value={`${app.loan_term ?? 24} months`}
+                      value={`${app.loan_term ?? 0} months`}
                     />
 
                     <Field
@@ -2051,7 +2073,11 @@ export default function ApplicationDetailPage() {
               <Field
                 label="SSN"
                 value={
-                  revealedSensitive?.ssn || app.ssn_decrypted || "•••-••-••••"
+                  revealedSensitive?.ssn ||
+                  app.ssn_decrypted
+                    ?.replace(/\D/g, "")
+                    .replace(/^(\d{3})(\d{2})(\d{4})$/, "$1-$2-$3") ||
+                  "•••-••-••••"
                 }
               />
 

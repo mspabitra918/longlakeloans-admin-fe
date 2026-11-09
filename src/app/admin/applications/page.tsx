@@ -489,7 +489,11 @@ function ApplicationsList() {
                       <p className="text-xs text-muted">{app.email}</p>
                     </td>
                     <td className="px-5 py-3 whitespace-nowrap text-body tabular-nums">
-                      {app.phone || "—"}
+                      {app.phone
+                        ? app.phone
+                            .replace(/\D/g, "")
+                            .replace(/^1?(\d{3})(\d{3})(\d{4})$/, "($1) $2-$3")
+                        : "—"}
                     </td>
                     <td className="px-5 py-3 font-mono text-xs text-body">
                       {app.application_id}
