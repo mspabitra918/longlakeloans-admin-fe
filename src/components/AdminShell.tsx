@@ -17,8 +17,8 @@ import { useAdminAuth } from "@/lib/admin-auth";
 const NAV = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/applications", label: "Applications", icon: FileText },
-  // { href: "/admin/message", label: "Messages", icon: Mail },
-  { href: "/admin/user", label: "Users", icon: Users, adminOnly: true },
+  { href: "/admin/message", label: "Messages", icon: Mail },
+  // { href: "/admin/user", label: "Users", icon: Users },
 ];
 
 export function Logo({
@@ -73,7 +73,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
   if (isLogin) return <>{children}</>;
   if (loading || !user) return <Spinner />;
 
-  const links = NAV.filter((n) => !n.adminOnly || isAdmin);
+  const links = NAV.filter((n) => isAdmin || n.href !== "/admin/user");
 
   const nav = (
     <nav className="flex flex-1 flex-col gap-0.5 px-3 py-4">
