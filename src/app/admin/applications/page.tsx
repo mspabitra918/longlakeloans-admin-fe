@@ -284,7 +284,7 @@ function ApplicationsList() {
               type="search"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              placeholder="Search name, phone, email or application ID"
+              // placeholder="Search name, phone, email or application ID"
               aria-label="Search applications"
               className="w-full border border-line bg-paper py-2 pl-9 pr-9 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-brand [&::-webkit-search-cancel-button]:hidden"
             />

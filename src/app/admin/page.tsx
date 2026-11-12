@@ -81,7 +81,10 @@ export default function AdminLoginPage() {
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-5">
             <div>
-              <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-ink">
+              <label
+                htmlFor="email"
+                className="mb-1.5 block text-sm font-medium text-ink"
+              >
                 Email
               </label>
               <input
@@ -92,11 +95,14 @@ export default function AdminLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={input}
-                placeholder="you@longlakeloans.com"
+                // placeholder="you@longlakeloans.com"
               />
             </div>
             <div>
-              <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-ink">
+              <label
+                htmlFor="password"
+                className="mb-1.5 block text-sm font-medium text-ink"
+              >
                 Password
               </label>
               <input
@@ -107,7 +113,7 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className={input}
-                placeholder="Enter your password"
+                // placeholder="Enter your password"
               />
             </div>
             <button
@@ -116,7 +122,9 @@ export default function AdminLoginPage() {
               className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-paper shadow-sm transition-colors hover:bg-brand-dark disabled:opacity-50"
             >
               {submitting ? "Signing in…" : "Sign in"}
-              {!submitting && <ArrowRight className="h-4 w-4" strokeWidth={1.5} />}
+              {!submitting && (
+                <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+              )}
             </button>
           </form>
         </div>

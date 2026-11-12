@@ -143,7 +143,6 @@ function MessagesListContent() {
 
   return (
     <div className="">
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
           <h1 className="text-2xl font-bold text-gray-900">
@@ -156,7 +155,7 @@ function MessagesListContent() {
             <form onSubmit={handleSearch} className="flex gap-2">
               <input
                 type="text"
-                placeholder="Search by name, email or message"
+                // placeholder="Search by name, email or message"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none w-64"
